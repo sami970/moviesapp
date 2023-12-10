@@ -11,7 +11,8 @@ const Displaymovies = () => {
     const MOVIE_API = "https://api.themoviedb.org/3/"
     const SEARCH_API = MOVIE_API + "search/movie"
     const DISCOVER_API = MOVIE_API + "discover/movie"
-    const API_KEY = "adef971a0b37b7d464e904f506a586d1"
+    const API_KEY = "2a99dc03f08c23158b2469263f803e70"
+    
     const BACKDROP_PATH = "https://image.tmdb.org/t/p/w1280"
     const personUrl = MOVIE_API +"trending/person/week";
 
@@ -31,6 +32,7 @@ const Displaymovies = () => {
         if (event) {
             event.preventDefault()
         }
+        console.log(API_KEY)
 
         const {data} = await axios.get(`${searchKey ? SEARCH_API : DISCOVER_API}`, {
             params: {

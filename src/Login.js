@@ -70,7 +70,7 @@ const Login = () => {
     return (
         <div className="row">
             <div className="login" style={{ marginTop: '100px' }}>
-                <form onSubmit={ProceedLogin} className="container">
+                <form onSubmit={ProceedLogin} className="containerLogin">
                     <div className="card">
                         <div className="card-header">
                             <h2>User Login</h2>

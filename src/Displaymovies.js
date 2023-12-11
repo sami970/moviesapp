@@ -141,10 +141,11 @@ const Displaymovies = () => {
               src={c.img}
               alt={c.name}
             ></img>
-            <p className="font-weight-bold text-center">{c.name}</p>
+            <p className="font-weight-bold text-center"
+            style={{ color: "#F4FDFF" }}>{c.name}</p>
             <p
               className="font-weight-light text-center"
-              style={{ color: "#5a606b" }}
+              style={{ color: "#F4FDFF" }}
             >
               {c.character}
             </p>
@@ -216,7 +217,7 @@ const Displaymovies = () => {
 
                         <div className="row mt-3">
                             <div className="col">
-                                <p style={{ color: "#5a606b", fontWeight: "bolder" }}>CASTS</p>
+                                <p style={{ color: "#F4FDFF", fontWeight: "bolder" }}>CASTS</p>
                             </div>
                         </div>
                         <div className="row mt-3">{castList}</div>

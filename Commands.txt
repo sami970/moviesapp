@@ -9,14 +9,4 @@ npm install react-rating-stars-component --save
 /*Youtube package
 npm install react-youtube //Movies
 
-/*Jason database
-npx json-server --watch db.json --port 8000 //Movies
 
-//Link Login
-
-https://www.youtube.com/watch?v=5OV-TYyJEnw
-https://github.com/nihira2020/reactauthentication
-
-//Link Movie
-https://www.youtube.com/watch?v=oqJY1L0gnto
-https://github.com/dom-the-dev/movie-trailer-app

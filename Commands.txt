@@ -1,0 +1,12 @@
+npx create-react-app moviesapp
+npm i react-toastify  //login
+npm install bootstrap //responsive movie displayment
+npm install react-router-dom //Login
+npm install axios //Movies to fetch api data
+npm install firebase
+npm install react-rating-stars-component --save
+
+/*Youtube package
+npm install react-youtube //Movies
+
+

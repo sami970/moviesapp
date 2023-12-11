@@ -5,24 +5,24 @@ import { toast } from "react-toastify";
 import Youtube from 'react-youtube'
 import {db} from './config/firestore';
 import { collection, addDoc } from "firebase/firestore"; 
-import ReactStars from "react-rating-stars-component";
+
 
 const Displaymovies = () => {
     const MOVIE_API = "https://api.themoviedb.org/3/"
+    const movieUrl = `${MOVIE_API}movie`;
     const SEARCH_API = MOVIE_API + "search/movie"
     const DISCOVER_API = MOVIE_API + "discover/movie"
     const API_KEY = "2a99dc03f08c23158b2469263f803e70"
-    
     const BACKDROP_PATH = "https://image.tmdb.org/t/p/w1280"
     const personUrl = MOVIE_API +"trending/person/week";
 
     const [playing, setPlaying] = useState(false)
-    
+    const [casts, setCasts] = useState([]);
     const [trailer, setTrailer] = useState(null)
     const [movies, setMovies] = useState([])
     const [searchKey, setSearchKey] = useState("")
     const [movie, setMovie] = useState({title: "Loading Movies"})
-    const [persons, setPersons] = useState([]);
+   
 
     useEffect(() => {
         fetchMovies()
@@ -32,7 +32,6 @@ const Displaymovies = () => {
         if (event) {
             event.preventDefault()
         }
-        console.log(API_KEY)
 
         const {data} = await axios.get(`${searchKey ? SEARCH_API : DISCOVER_API}`, {
             params: {
@@ -50,23 +49,22 @@ const Displaymovies = () => {
         }
     }
 
-     const fetchPersons = async () => {
+     
+    const fetchCasts = async (id) => {
         try {
-            const { data } = await axios.get(personUrl, {
+            const { data } = await axios.get(`${movieUrl}/${id}/credits`, {
                 params: {
-                    api_key: API_KEY
+                    api_key: API_KEY,
                 }
-            })
-            const persons = data['results'].map((p) => ({
-                id: p['id'],
-                popularity: p['popularity'],
-                name: p['name'],
-                profileImg: 'https://image.tmdb.org/t/p/w200' + p['profile_path'],
-                known: p['known_for_department']
+            });
+            const modifiedData = data['cast'].map((c) => ({
+                id: c['cast_id'],
+                character: c['character'],
+                name: c['name'],
+                img: 'https://image.tmdb.org/t/p/w200' + c['profile_path'],
             }))
-            setPersons(persons)
-            console.log(persons)
-            
+    
+            return modifiedData;
         } catch (error) { }
     }
 
@@ -116,11 +114,12 @@ const Displaymovies = () => {
     }
 
 
-    const selectMovie = (movie) => {
+    const selectMovie = async (movie) => {
         fetchMovie(movie.id)
         setPlaying(false)
         setMovie(movie)
-       // fetchPersons()
+     
+       setCasts(await fetchCasts(movie.id));
         window.scrollTo(0, 0)
     }
 
@@ -133,6 +132,25 @@ const Displaymovies = () => {
             />
         ))
     )
+
+    const castList = casts.slice(0, 4).map((c, i) => {
+        return (
+          <div className="col-md-3 text-center" key={i}>
+            <img
+              className="img-fluid rounded-circle mx-auto d-block"
+              src={c.img}
+              alt={c.name}
+            ></img>
+            <p className="font-weight-bold text-center">{c.name}</p>
+            <p
+              className="font-weight-light text-center"
+              style={{ color: "#5a606b" }}
+            >
+              {c.character}
+            </p>
+          </div>
+        );
+      });
 
     return (
         <div className="App">
@@ -189,16 +207,19 @@ const Displaymovies = () => {
 
                                         <h1>{movie.title}</h1>
                                         <p >{movie.overview}</p>
-                                        <ReactStars
-                                            count={movie.rating}
-                                            size={20}
-                                            color1={"#f4c10f"}
-                                        ></ReactStars>
+
                                     </div>
                                 </div>
                             }
                         </div>
                         : null}
+
+                        <div className="row mt-3">
+                            <div className="col">
+                                <p style={{ color: "#5a606b", fontWeight: "bolder" }}>CASTS</p>
+                            </div>
+                        </div>
+                        <div className="row mt-3">{castList}</div>
 
                     <div className={"center-max-size container"}>
                         {renderMovies()}

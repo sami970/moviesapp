@@ -86,7 +86,7 @@ function BcVdeo() {
   
 
     return (
-        <> <h1  style={{ textAlign: 'center', color:'white'}}>Welcome to Sp6 Movie app</h1>
+        <> <h1  style={{ textAlign: 'center', color:'white'}}>Welcome to SLK Semester project 6 Movies Web Application</h1>
             <div className='customVideoTagClass'>
 
                 <video ref={videoRef} preload='auto'>
@@ -105,7 +105,7 @@ function BcVdeo() {
 
               
                 <button onClick={videoStop} >Stop</button><br />
-                <button onClick={videoReplay}>Repaly</button><br />
+                <button onClick={videoReplay}>Replay</button><br />
                 <button onClick={videoMute}>Mute</button><br />
                 <button onClick={videoUnMute}>Unmute</button><br />
                 <label><b>volume</b></label><input type='range' min="0" max="100" step='10' value={volumOfVideo} onChange={volumebar} /><br /><br />
